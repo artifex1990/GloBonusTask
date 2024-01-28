@@ -6,6 +6,7 @@ window.cardService = new CardService();
 
 // eslint-disable-next-line no-undef
 const cards = cardService.getCards();
+const locale = 'ru';
 
-render(cards);
-initFilters(cards);
+render(cards, locale);
+initFilters(cards, locale);

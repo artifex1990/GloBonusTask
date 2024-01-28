@@ -16,6 +16,9 @@ export const locales = (typeObject, locale = 'en') => {
         photo: 'Photo',
         movies: 'Movies',
       },
+      filters: {
+        movie: 'Movie',
+      },
     },
     ru: {
       card: {
@@ -30,6 +33,9 @@ export const locales = (typeObject, locale = 'en') => {
         actors: 'Актёр',
         photo: 'Фотография',
         movies: 'Фильмы',
+      },
+      filters: {
+        movie: 'Фильм',
       },
     },
   };

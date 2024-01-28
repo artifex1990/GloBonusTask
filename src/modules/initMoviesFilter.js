@@ -1,10 +1,13 @@
-import { merge } from './helper';
+import { locales, merge } from './helper';
 import { render } from './render';
 
 // eslint-disable-next-line import/prefer-default-export
-export const initMoviesFilter = async (cards) => {
+export const initMoviesFilter = async (cards, locale = 'en') => {
   const filterMoviesSelect = document.getElementById('filter-movies');
+  const labelMovie = document.querySelector('.movie-label');
   let movies = [];
+
+  labelMovie.textContent = `${locales('filters', locale).movie}: `;
 
   const getMoviesList = async () => {
     // eslint-disable-next-line no-undef
