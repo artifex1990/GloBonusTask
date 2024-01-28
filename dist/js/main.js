@@ -14,29 +14,19 @@
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_generateCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/generateCard */ \"./modules/generateCard.js\");\n/* harmony import */ var _modules_getdata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/getdata */ \"./modules/getdata.js\");\n\n\n\nconst data = await (0,_modules_getdata__WEBPACK_IMPORTED_MODULE_1__[\"default\"])('./data/dbHeroes.json');\nconst app = document.getElementById('app');\nconst cards = document.createElement('div');\n\ncards.classList.add('cards');\n\ndata.forEach((element) => {\n  cards.append((0,_modules_generateCard__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(element));\n  cards.appendChild(document.createElement('br'));\n});\n\napp.append(cards);\n\n__webpack_async_result__();\n} catch(e) { __webpack_async_result__(e); } }, 1);\n\n//# sourceURL=webpack:///./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_cardService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/cardService */ \"./modules/cardService.js\");\n/* harmony import */ var _modules_initFilters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/initFilters */ \"./modules/initFilters.js\");\n/* harmony import */ var _modules_render__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/render */ \"./modules/render.js\");\n\n\n\n\nwindow.cardService = new _modules_cardService__WEBPACK_IMPORTED_MODULE_0__.CardService();\n\n// eslint-disable-next-line no-undef\nconst cards = cardService.getCards();\n\n(0,_modules_render__WEBPACK_IMPORTED_MODULE_2__.render)(cards);\n(0,_modules_initFilters__WEBPACK_IMPORTED_MODULE_1__.initFilters)(cards);\n\n\n//# sourceURL=webpack:///./index.js?");
 
 /***/ }),
 
-/***/ "./modules/generateCard.js":
-/*!*********************************!*\
-  !*** ./modules/generateCard.js ***!
-  \*********************************/
+/***/ "./modules/cardService.js":
+/*!********************************!*\
+  !*** ./modules/cardService.js ***!
+  \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper */ \"./modules/helper.js\");\n\n\nconst generateCard = (card) => {\n  const type = 'card';\n  const cardBlock = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('div');\n  const table = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('table');\n\n  const className = `card${new Date().getTime()}`;\n  cardBlock.classList.add(className);\n  // eslint-disable-next-line no-restricted-syntax, guard-for-in\n  for (const key in card) {\n    const tr = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('tr');\n    const tdName = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('td');\n    const tdValue = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('td');\n    tdName.innerText = `${(0,_helper__WEBPACK_IMPORTED_MODULE_0__.locales)(type)[key]}: `;\n    if (key === 'photo') {\n      const img = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('img');\n      img.setAttribute('src', `./data/${card[key]}`);\n      // eslint-disable-next-line no-param-reassign\n      tdValue.append(img);\n    } else {\n      tdValue.innerText = card[key];\n    }\n    tr.append(tdName);\n    tr.append(tdValue);\n    table.append(tr);\n  }\n  cardBlock.append(table);\n\n  return cardBlock;\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (generateCard);\n\n\n//# sourceURL=webpack:///./modules/generateCard.js?");
-
-/***/ }),
-
-/***/ "./modules/getdata.js":
-/*!****************************!*\
-  !*** ./modules/getdata.js ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst getData = (url) => fetch(url)\n  .then((response) => response.json())\n  .then((data) => data)\n  .catch((error) => error);\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getData);\n\n\n//# sourceURL=webpack:///./modules/getdata.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   CardService: () => (/* binding */ CardService)\n/* harmony export */ });\n/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper */ \"./modules/helper.js\");\n\n\n// eslint-disable-next-line import/prefer-default-export\nclass CardService {\n  // eslint-disable-next-line class-methods-use-this\n  getCards() {\n    return (0,_helper__WEBPACK_IMPORTED_MODULE_0__.getData)('http://localhost:4545/heroes').then((cards) => cards);\n  }\n\n  // eslint-disable-next-line class-methods-use-this\n  getFilterCards(name, value) {\n    return (0,_helper__WEBPACK_IMPORTED_MODULE_0__.getData)(`http://localhost:4545/heroes?${name}_like=${value}`).then((cards) => cards);\n  }\n}\n\n\n//# sourceURL=webpack:///./modules/cardService.js?");
 
 /***/ }),
 
@@ -46,7 +36,37 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   generateTags: () => (/* binding */ generateTags),\n/* harmony export */   locales: () => (/* binding */ locales)\n/* harmony export */ });\nconst locales = (typeObject, locale = 'en') => {\n  const defaultLocale = 'en';\n  // eslint-disable-next-line no-underscore-dangle\n  const _locales = {\n    en: {\n      card: {\n        name: 'Name',\n        realName: 'Real name',\n        citizenship: 'Citizenship',\n        species: 'Species',\n        gender: 'Gender',\n        birthDay: 'Birth day',\n        deathDay: 'Death day',\n        status: 'Status',\n        actors: 'Actors',\n        photo: 'Photo',\n        movies: 'Movies',\n      },\n    },\n  };\n\n  if (_locales[locale].length) {\n    return _locales[locale][typeObject];\n  }\n\n  return _locales[defaultLocale][typeObject];\n};\n\nconst generateTags = (typeTag, innerText = '') => {\n  // eslint-disable-next-line no-shadow\n  const getTag = (typeTag) => document.createElement(typeTag);\n  const tag = getTag(typeTag);\n  tag.innerText = innerText;\n\n  return tag;\n};\n\n// eslint-disable-next-line import/prefer-default-export\n\n\n\n//# sourceURL=webpack:///./modules/helper.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   generateTags: () => (/* binding */ generateTags),\n/* harmony export */   getData: () => (/* binding */ getData),\n/* harmony export */   locales: () => (/* binding */ locales),\n/* harmony export */   merge: () => (/* binding */ merge)\n/* harmony export */ });\nconst locales = (typeObject, locale = 'en') => {\n  const defaultLocale = 'en';\n  // eslint-disable-next-line no-underscore-dangle\n  const _locales = {\n    en: {\n      card: {\n        name: 'Name',\n        realName: 'Real name',\n        citizenship: 'Citizenship',\n        species: 'Species',\n        gender: 'Gender',\n        birthDay: 'Birth day',\n        deathDay: 'Death day',\n        status: 'Status',\n        actors: 'Actors',\n        photo: 'Photo',\n        movies: 'Movies',\n      },\n    },\n    ru: {\n      card: {\n        name: 'Имя',\n        realName: 'Настоящее имя',\n        citizenship: 'Гражданство',\n        species: 'Вид',\n        gender: 'Пол',\n        birthDay: 'День рождения',\n        deathDay: 'День смерти',\n        status: 'Статус',\n        actors: 'Актёр',\n        photo: 'Фотография',\n        movies: 'Фильмы',\n      },\n    },\n  };\n\n  if (Object.keys(_locales[locale][typeObject]).length) {\n    return _locales[locale][typeObject];\n  }\n\n  return _locales[defaultLocale][typeObject];\n};\n\nconst generateTags = (typeTag, innerText = '') => {\n  // eslint-disable-next-line no-shadow\n  const getTag = (typeTag) => document.createElement(typeTag);\n  const tag = getTag(typeTag);\n  tag.innerText = innerText;\n\n  return tag;\n};\n\n// eslint-disable-next-line arrow-body-style\nconst getData = (url) => {\n  return fetch(url)\n    .then((response) => response.json())\n    .catch((error) => error);\n};\n\n// eslint-disable-next-line no-shadow\nconst merge = (a, b, condition = (a, b) => a === b) => {\n  const temp = [...a];\n\n  // eslint-disable-next-line max-len\n  b.forEach((bItem) => (temp.some((tempItem) => condition(bItem, tempItem)) ? null : temp.push(bItem)));\n\n  return temp;\n};\n\n\n//# sourceURL=webpack:///./modules/helper.js?");
+
+/***/ }),
+
+/***/ "./modules/initFilters.js":
+/*!********************************!*\
+  !*** ./modules/initFilters.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initFilters: () => (/* binding */ initFilters)\n/* harmony export */ });\n/* harmony import */ var _initMoviesFilter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./initMoviesFilter */ \"./modules/initMoviesFilter.js\");\n\n\n// eslint-disable-next-line import/prefer-default-export\nconst initFilters = async (cards) => {\n  (0,_initMoviesFilter__WEBPACK_IMPORTED_MODULE_0__.initMoviesFilter)(cards);\n};\n\n\n//# sourceURL=webpack:///./modules/initFilters.js?");
+
+/***/ }),
+
+/***/ "./modules/initMoviesFilter.js":
+/*!*************************************!*\
+  !*** ./modules/initMoviesFilter.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   initMoviesFilter: () => (/* binding */ initMoviesFilter)\n/* harmony export */ });\n/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper */ \"./modules/helper.js\");\n/* harmony import */ var _render__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./render */ \"./modules/render.js\");\n\n\n\n// eslint-disable-next-line import/prefer-default-export\nconst initMoviesFilter = async (cards) => {\n  const filterMoviesSelect = document.getElementById('filter-movies');\n  let movies = [];\n\n  const getMoviesList = async () => {\n    // eslint-disable-next-line no-undef\n    await cards.then((data) => {\n      data.forEach((hero) => {\n        const heroMovies = typeof hero.movies !== 'undefined' ? hero.movies : [];\n        movies = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.merge)(movies, heroMovies);\n      });\n    });\n  };\n\n  const createMoviesList = () => {\n    movies.forEach((movie) => {\n      const option = document.createElement('option');\n\n      // eslint-disable-next-line no-multi-assign\n      option.value = option.textContent = movie;\n      filterMoviesSelect.appendChild(option);\n    });\n  };\n\n  filterMoviesSelect.addEventListener('change', (e) => {\n    e.preventDefault();\n    const movieName = e.target.value;\n\n    // eslint-disable-next-line no-undef\n    (0,_render__WEBPACK_IMPORTED_MODULE_1__.render)(cardService.getFilterCards('movies', movieName));\n  });\n\n  await getMoviesList();\n  createMoviesList();\n};\n\n\n//# sourceURL=webpack:///./modules/initMoviesFilter.js?");
+
+/***/ }),
+
+/***/ "./modules/render.js":
+/*!***************************!*\
+  !*** ./modules/render.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   render: () => (/* binding */ render)\n/* harmony export */ });\n/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper */ \"./modules/helper.js\");\n\n\n// eslint-disable-next-line import/prefer-default-export\nconst render = (cards, locale = 'en') => {\n  const cardList = document.getElementById('card-list');\n  cardList.innerHTML = '';\n\n  const createCard = (card) => {\n    const type = 'card';\n    const cardBlock = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('div');\n    const table = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('table');\n    const className = `card${new Date().getTime()}`;\n\n    cardBlock.classList.add(className);\n    // eslint-disable-next-line no-restricted-syntax, guard-for-in\n    for (const key in card) {\n      const tr = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('tr');\n      const tdName = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('td');\n      const tdValue = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('td');\n\n      tdName.innerText = `${(0,_helper__WEBPACK_IMPORTED_MODULE_0__.locales)(type, locale)[key]}: `;\n\n      if (key === 'photo') {\n        const img = (0,_helper__WEBPACK_IMPORTED_MODULE_0__.generateTags)('img');\n        img.setAttribute('src', `./data/${card[key]}`);\n        // eslint-disable-next-line no-param-reassign\n        tdValue.append(img);\n      } else {\n        tdValue.innerText = card[key];\n      }\n\n      tr.append(tdName);\n      tr.append(tdValue);\n      table.append(tr);\n    }\n    cardBlock.append(table);\n\n    return cardBlock;\n  };\n\n  try {\n    cards.then((data) => {\n      data.forEach((card) => {\n        cardList.append(createCard(card));\n        cardList.append(document.createElement('br'));\n      });\n      cardList.append(cards);\n    });\n  } catch (error) {\n    console.log(error.message);\n  }\n};\n\n\n//# sourceURL=webpack:///./modules/render.js?");
 
 /***/ })
 
@@ -77,75 +97,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/async module */
-/******/ 	(() => {
-/******/ 		var webpackQueues = typeof Symbol === "function" ? Symbol("webpack queues") : "__webpack_queues__";
-/******/ 		var webpackExports = typeof Symbol === "function" ? Symbol("webpack exports") : "__webpack_exports__";
-/******/ 		var webpackError = typeof Symbol === "function" ? Symbol("webpack error") : "__webpack_error__";
-/******/ 		var resolveQueue = (queue) => {
-/******/ 			if(queue && queue.d < 1) {
-/******/ 				queue.d = 1;
-/******/ 				queue.forEach((fn) => (fn.r--));
-/******/ 				queue.forEach((fn) => (fn.r-- ? fn.r++ : fn()));
-/******/ 			}
-/******/ 		}
-/******/ 		var wrapDeps = (deps) => (deps.map((dep) => {
-/******/ 			if(dep !== null && typeof dep === "object") {
-/******/ 				if(dep[webpackQueues]) return dep;
-/******/ 				if(dep.then) {
-/******/ 					var queue = [];
-/******/ 					queue.d = 0;
-/******/ 					dep.then((r) => {
-/******/ 						obj[webpackExports] = r;
-/******/ 						resolveQueue(queue);
-/******/ 					}, (e) => {
-/******/ 						obj[webpackError] = e;
-/******/ 						resolveQueue(queue);
-/******/ 					});
-/******/ 					var obj = {};
-/******/ 					obj[webpackQueues] = (fn) => (fn(queue));
-/******/ 					return obj;
-/******/ 				}
-/******/ 			}
-/******/ 			var ret = {};
-/******/ 			ret[webpackQueues] = x => {};
-/******/ 			ret[webpackExports] = dep;
-/******/ 			return ret;
-/******/ 		}));
-/******/ 		__webpack_require__.a = (module, body, hasAwait) => {
-/******/ 			var queue;
-/******/ 			hasAwait && ((queue = []).d = -1);
-/******/ 			var depQueues = new Set();
-/******/ 			var exports = module.exports;
-/******/ 			var currentDeps;
-/******/ 			var outerResolve;
-/******/ 			var reject;
-/******/ 			var promise = new Promise((resolve, rej) => {
-/******/ 				reject = rej;
-/******/ 				outerResolve = resolve;
-/******/ 			});
-/******/ 			promise[webpackExports] = exports;
-/******/ 			promise[webpackQueues] = (fn) => (queue && fn(queue), depQueues.forEach(fn), promise["catch"](x => {}));
-/******/ 			module.exports = promise;
-/******/ 			body((deps) => {
-/******/ 				currentDeps = wrapDeps(deps);
-/******/ 				var fn;
-/******/ 				var getResult = () => (currentDeps.map((d) => {
-/******/ 					if(d[webpackError]) throw d[webpackError];
-/******/ 					return d[webpackExports];
-/******/ 				}))
-/******/ 				var promise = new Promise((resolve) => {
-/******/ 					fn = () => (resolve(getResult));
-/******/ 					fn.r = 0;
-/******/ 					var fnQueue = (q) => (q !== queue && !depQueues.has(q) && (depQueues.add(q), q && !q.d && (fn.r++, q.push(fn))));
-/******/ 					currentDeps.map((dep) => (dep[webpackQueues](fnQueue)));
-/******/ 				});
-/******/ 				return fn.r ? promise : getResult();
-/******/ 			}, (err) => ((err ? reject(promise[webpackError] = err) : outerResolve(exports)), resolveQueue(queue)));
-/******/ 			queue && queue.d < 0 && (queue.d = 0);
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports

@@ -1,15 +1,11 @@
-import generateCard from './modules/generateCard';
-import getData from './modules/getdata';
+import { CardService } from './modules/cardService';
+import { initFilters } from './modules/initFilters';
+import { render } from './modules/render';
 
-const data = await getData('./data/dbHeroes.json');
-const app = document.getElementById('app');
-const cards = document.createElement('div');
+window.cardService = new CardService();
 
-cards.classList.add('cards');
+// eslint-disable-next-line no-undef
+const cards = cardService.getCards();
 
-data.forEach((element) => {
-  cards.append(generateCard(element));
-  cards.appendChild(document.createElement('br'));
-});
-
-app.append(cards);
+render(cards);
+initFilters(cards);

@@ -1,4 +1,4 @@
-const locales = (typeObject, locale = 'en') => {
+export const locales = (typeObject, locale = 'en') => {
   const defaultLocale = 'en';
   // eslint-disable-next-line no-underscore-dangle
   const _locales = {
@@ -17,16 +17,31 @@ const locales = (typeObject, locale = 'en') => {
         movies: 'Movies',
       },
     },
+    ru: {
+      card: {
+        name: 'Имя',
+        realName: 'Настоящее имя',
+        citizenship: 'Гражданство',
+        species: 'Вид',
+        gender: 'Пол',
+        birthDay: 'День рождения',
+        deathDay: 'День смерти',
+        status: 'Статус',
+        actors: 'Актёр',
+        photo: 'Фотография',
+        movies: 'Фильмы',
+      },
+    },
   };
 
-  if (_locales[locale].length) {
+  if (Object.keys(_locales[locale][typeObject]).length) {
     return _locales[locale][typeObject];
   }
 
   return _locales[defaultLocale][typeObject];
 };
 
-const generateTags = (typeTag, innerText = '') => {
+export const generateTags = (typeTag, innerText = '') => {
   // eslint-disable-next-line no-shadow
   const getTag = (typeTag) => document.createElement(typeTag);
   const tag = getTag(typeTag);
@@ -35,5 +50,19 @@ const generateTags = (typeTag, innerText = '') => {
   return tag;
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { locales, generateTags };
+// eslint-disable-next-line arrow-body-style
+export const getData = (url) => {
+  return fetch(url)
+    .then((response) => response.json())
+    .catch((error) => error);
+};
+
+// eslint-disable-next-line no-shadow
+export const merge = (a, b, condition = (a, b) => a === b) => {
+  const temp = [...a];
+
+  // eslint-disable-next-line max-len
+  b.forEach((bItem) => (temp.some((tempItem) => condition(bItem, tempItem)) ? null : temp.push(bItem)));
+
+  return temp;
+};
